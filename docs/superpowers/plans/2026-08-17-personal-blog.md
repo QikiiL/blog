@@ -273,6 +273,26 @@ git commit -m "config: set site identity, zh_CN, subpath base /blog/, trim nav a
 
 ---
 
+### Task 3b: 子路径适配修复（代码质量审查发现的必要修复）
+
+> 背景：Task 3 质量审查（实际运行 pnpm build）发现主题默认假设根路径部署，`base: "/blog/"` 暴露 4 个问题。规格"范围外：主题代码二次开发"指样式/功能定制；以下属部署必要性的 bug 修复，不违背规格意图。
+
+**Files:**
+- Modify: `scripts/check-global-style-loading.mjs`（Critical：构建链必挂）
+- Modify: `src/components/organisms/navigation/Navbar.astro:21` 附近 isHomePage 判断与 `:316` pagefind URL
+- Modify: `src/layouts/MainGridLayout.astro:67` isHomePage 判断
+- Modify: `src/layouts/partials/GridScripts.astro:97-98` 客户端 isHomePage 判断
+- Modify: `src/config/pioConfig.ts`（enable: false，符合规格"Live2D 暂不开启"意图）
+- Modify: `.github/workflows/deploy.yml`（Build step 增加 `ENABLE_CONTENT_SYNC: false` env，消除 CI 警告的不确定性）
+
+- [ ] **Step 1: 修复 check-global-style-loading.mjs**——资源路径解析前移除 base 前缀。参考 `scripts/read-site-config.mjs` 的模式读取 base（不要硬编码 "blog"），或在 `path.resolve(dist, p)` 前将 p 的 base 段剥掉。修复标准：`pnpm build` 完整跑通（含 pagefind 与字体检查）退出码 0。
+- [ ] **Step 2: 修复 isHomePage 判断**——三处 `pathname === "/"` 改为与 `import.meta.env.BASE_URL` 比较（兼容带/不带尾斜杠）。服务端两处（Navbar.astro、MainGridLayout.astro）直接用 BASE_URL；客户端 GridScripts.astro 通过 `define:vars` 或 data 属性传入。修复标准：重新构建后 `dist/index.html` 的 `data-is-home="true"`。
+- [ ] **Step 3: 修复 Pagefind 加载 URL**——`new URL('pagefind/pagefind.js', window.location.origin)` 需加 base 前缀（`<script is:inline>` 中 `import.meta.env` 不生效，用 `define:vars` 传 base）。修复标准：构建产物中该 URL 为 `/blog/pagefind/pagefind.js`。
+- [ ] **Step 4: pioConfig.ts 设 `enable: false`**（审查发现主题默认是 true，与规格"Live2D 暂不开启"不符）。
+- [ ] **Step 5: deploy.yml 的 Build site 步骤 env 增加 `ENABLE_CONTENT_SYNC: false`。**
+- [ ] **Step 6: 回归**：`pnpm type-check && pnpm test && pnpm build` 全部通过；`grep -o 'data-is-home="[^"]*"' dist/index.html` 输出 true；grep pagefind.js URL 含 /blog/ 前缀。
+- [ ] **Step 7: 提交** `fix: adapt theme to subpath base /blog/ (build check, homepage detection, pagefind, pio off)`。
+
 ### Task 4: 本地构建烟测（演示内容仍在时先验证配置）
 
 **Files:** 无修改（验证性任务）
@@ -316,6 +336,7 @@ grep -o 'href="/blog/[^"]*"' dist/index.html | head -5 && ls dist/assets/ | head
 - Create: `src/content/posts/hello-daily.md`
 - Modify: `src/content/spec/about.md`（整文件重写）
 - Modify: `src/data/friends.ts`（`friendsData` 数组替换）
+- Modify: `src/config/announcementConfig.ts`（质量审查发现：演示公告链接 `/about/` 在子路径下 404——重写为中文欢迎公告并保持链接 base 感知或禁用链接）
 
 - [ ] **Step 1: 删除演示文章**
 
