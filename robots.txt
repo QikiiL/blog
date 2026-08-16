@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /
+Allow: /$
+Allow: /posts/
+
+Sitemap: https://qikiil.github.io/blog/sitemap-index.xml
