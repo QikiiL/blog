@@ -337,6 +337,10 @@ grep -o 'href="/blog/[^"]*"' dist/index.html | head -5 && ls dist/assets/ | head
 - Modify: `src/content/spec/about.md`（整文件重写）
 - Modify: `src/data/friends.ts`（`friendsData` 数组替换）
 - Modify: `src/config/announcementConfig.ts`（质量审查发现：演示公告链接 `/about/` 在子路径下 404——重写为中文欢迎公告并保持链接 base 感知或禁用链接）
+- Modify: `src/components/features/toc/hooks/useMobileTOC.ts:117-119`（复审 Minor 1：checkIsHomePage 的根路径判断改为 base 感知——用 document 元素上的现有 base 信息或与 GridScripts 相同的传入方式，保持分页 `/blog/2/` 也判定为首页）
+- Modify: `.github/workflows/deploy.yml`（复审 Minor 3：调整 env 注释措辞，说明 ENABLE_CONTENT_SYNC:false 为显式设定）
+
+（复审 Minor 2：`Pio.astro:108` 的 `location.href = "/"` 因看板娘已禁用属休眠代码，不修改，记录到 Task 9 交付说明。）
 
 - [ ] **Step 1: 删除演示文章**
 
