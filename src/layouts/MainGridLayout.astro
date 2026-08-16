@@ -64,7 +64,11 @@ const hasBannerCredit = siteConfig.banner.credit.enable;
 const hasBannerLink = !!siteConfig.banner.credit.url;
 
 // 检查是否为首页
-const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
+const homePaths = [
+	import.meta.env.BASE_URL,
+	import.meta.env.BASE_URL.replace(/\/$/, ""),
+];
+const isHomePage = homePaths.includes(Astro.url.pathname);
 const layoutVariant = postSlug ? "post" : isHomePage ? "home" : "default";
 // 手机端非首页不显示banner的CSS类
 const mobileNonHomeBannerClass = !isHomePage ? "mobile-hide-banner" : "";
@@ -117,6 +121,7 @@ const defaultPostListLayout = siteConfig.postListLayout?.defaultMode || "list";
 	<GridScripts
 		navbarTransparentMode={siteConfig.banner?.navbar?.transparentMode ||
 			"semi"}
+		siteBasePath={import.meta.env.BASE_URL}
 		defaultWallpaperMode={siteConfig.wallpaperMode.defaultMode}
 		defaultPostListLayout={siteConfig.postListLayout?.defaultMode || "list"}
 		BANNER_HEIGHT={BANNER_HEIGHT}

@@ -38,6 +38,8 @@ jobs:
       - name: Build site
         run: pnpm run build
         env:
+          # CI 环境没有 .env 文件，显式禁用内容同步以保证构建行为确定
+          ENABLE_CONTENT_SYNC: false
           # 如果需要启用内容分离,取消以下注释并配置
           # ENABLE_CONTENT_SYNC: true
           # CONTENT_REPO_URL: ${{ secrets.CONTENT_REPO_URL }}

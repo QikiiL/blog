@@ -18,7 +18,11 @@ const className = Astro.props.class;
 const navbarTransparentMode =
 	siteConfig.banner?.navbar?.transparentMode || "semi";
 
-const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
+const homePaths = [
+	import.meta.env.BASE_URL,
+	import.meta.env.BASE_URL.replace(/\/$/, ""),
+];
+const isHomePage = homePaths.includes(Astro.url.pathname);
 
 // featurePage URL -> config key mapping
 const featurePageUrlMap: Record<string, string> = {
@@ -96,6 +100,9 @@ const logoWebpSrc = hasLogoPngFallback
 const iconWebpSrc = hasIconPngFallback
 	? iconSrc.replace(/\.png$/i, ".webp")
 	: iconSrc;
+
+// Pagefind 索引输出在 dist/pagefind/，线上位于站点 base 路径下
+const pagefindScriptPath = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/pagefind/pagefind.js`;
 ---
 <div id="navbar" class="z-50 onload-animation group" data-transparent-mode={navbarTransparentMode} data-is-home={isHomePage}>
     <div class="absolute h-8 left-0 right-0 -top-8 bg-[var(--card-bg)] transition"></div> <!-- used for onload animation -->
@@ -309,11 +316,11 @@ if (document.readyState === 'loading') {
 }
 </script>
 
-<script is:inline>
+<script is:inline define:vars={{ pagefindScriptPath }}>
 window.loadPagefind = async function() {
     if (window.pagefind) {return;}
     try {
-        const scriptUrl = new URL('pagefind/pagefind.js', window.location.origin).href;
+        const scriptUrl = new URL(pagefindScriptPath, window.location.origin).href;
         const response = await fetch(scriptUrl, { method: 'HEAD' });
         if (!response.ok) {
             throw new Error(`Pagefind script not found: ${response.status}`);

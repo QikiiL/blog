@@ -6,6 +6,7 @@
 
 interface Props {
 	navbarTransparentMode?: string;
+	siteBasePath?: string;
 	defaultWallpaperMode?: string;
 	defaultPostListLayout?: string;
 	BANNER_HEIGHT?: number;
@@ -18,6 +19,7 @@ interface Props {
 
 const {
 	navbarTransparentMode = "semi",
+	siteBasePath = "/",
 	defaultWallpaperMode = "banner",
 	defaultPostListLayout = "list",
 	BANNER_HEIGHT = 35,
@@ -34,6 +36,7 @@ const {
 	is:inline
 	define:vars={{
 		navbarTransparentMode,
+		siteBasePath,
 		defaultWallpaperMode,
 		defaultPostListLayout,
 		BANNER_HEIGHT,
@@ -94,8 +97,8 @@ const {
 		}
 
 		const isMobile = window.innerWidth < 1280;
-		const isHomePage =
-			window.location.pathname === "/" || window.location.pathname === "";
+		const homePaths = [siteBasePath, siteBasePath.replace(/\/$/, "")];
+		const isHomePage = homePaths.includes(window.location.pathname);
 
 		mainContent.classList.remove("mobile-main-no-banner", "no-banner-layout");
 		mainContent.style.removeProperty("min-height");

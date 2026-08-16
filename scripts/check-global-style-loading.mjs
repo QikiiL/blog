@@ -8,6 +8,28 @@ const projectRoot = path.resolve(
 );
 const distDirectory = path.join(projectRoot, "dist");
 
+// 从 astro.config.mjs 读取 base（正则方式，脚本无法 import TypeScript 配置）
+const astroConfigSource = await readFile(
+	path.join(projectRoot, "astro.config.mjs"),
+	"utf8",
+);
+const baseMatch = astroConfigSource.match(/\bbase\s*:\s*["']([^"']*)["']/);
+// 归一化为不带尾斜杠的形式，例如 "/blog/" → "/blog"，根路径保持 "/"
+const siteBasePath = (baseMatch?.[1] ?? "/").replace(/\/+$/, "") || "/";
+
+function stripSiteBasePath(pathname) {
+	if (siteBasePath === "/") {
+		return pathname;
+	}
+	if (pathname === siteBasePath) {
+		return "/";
+	}
+	if (pathname.startsWith(`${siteBasePath}/`)) {
+		return pathname.slice(siteBasePath.length);
+	}
+	return pathname;
+}
+
 function getAttribute(tag, name) {
 	const match = tag.match(
 		new RegExp(`\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "i"),
@@ -44,9 +66,14 @@ async function loadPageStyles(htmlPath) {
 				return "";
 			}
 
+			// base 只是 URL 前缀，Astro 并不会在 dist 下创建对应的物理目录，
+			// 解析磁盘路径前先剥掉 base 段。
+			const siteRelativePath = stripSiteBasePath(pathname);
 			const assetPath = path.resolve(
 				distDirectory,
-				pathname.startsWith("/") ? pathname.slice(1) : pathname,
+				siteRelativePath.startsWith("/")
+					? siteRelativePath.slice(1)
+					: siteRelativePath,
 			);
 			const relativePath = path.relative(distDirectory, assetPath);
 			if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
