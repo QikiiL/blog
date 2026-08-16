@@ -116,7 +116,10 @@ export function generatePostItems(): PostItem[] {
  */
 export function checkIsHomePage(): boolean {
 	const pathname = window.location.pathname;
-	return pathname === "/" || pathname === "" || /^\/\d+\/?$/.test(pathname);
+	// 去掉 base 前缀（如 /blog/），兼容部署在子路径下的情况
+	const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+	const path = base && pathname.startsWith(base) ? pathname.slice(base.length) : pathname;
+	return path === "/" || path === "" || /^\/\d+\/?$/.test(path);
 }
 
 /**

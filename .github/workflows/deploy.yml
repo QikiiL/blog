@@ -39,9 +39,9 @@ jobs:
         run: pnpm run build
         env:
           # CI 环境没有 .env 文件，显式禁用内容同步以保证构建行为确定
+          # （ENABLE_CONTENT_SYNC 已显式设为 false：本仓库使用本地内容）
           ENABLE_CONTENT_SYNC: false
-          # 如果需要启用内容分离,取消以下注释并配置
-          # ENABLE_CONTENT_SYNC: true
+          # 如需启用内容分离，配置以下变量并移除上方对 ENABLE_CONTENT_SYNC 的禁用
           # CONTENT_REPO_URL: ${{ secrets.CONTENT_REPO_URL }}
           # USE_SUBMODULE: true
       

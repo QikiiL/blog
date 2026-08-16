@@ -281,20 +281,20 @@ describe("Markdown AST enhancements", () => {
 		assert.equal(tree.children[0].attributes.title, "Known issue");
 	});
 
-	it("turns standalone wiki links into covered cards and inline links", async () => {
+	it("turns standalone wiki links into cards and inline links", async () => {
 		const tree = {
 			type: "root",
 			children: [
 				{
 					type: "paragraph",
-					children: [{ type: "text", value: "[[guide]]" }],
+					children: [{ type: "text", value: "[[hello-daily]]" }],
 				},
 				{
 					type: "paragraph",
 					children: [
 						{
 							type: "text",
-							value: "See [[guide|the guide]].",
+							value: "See [[hello-daily|the daily]].",
 						},
 					],
 				},
@@ -302,24 +302,24 @@ describe("Markdown AST enhancements", () => {
 		};
 		await remarkWikiLink()(tree, {
 			path: fileURLToPath(
-				new URL(
-					"../src/content/posts/content-pipeline-fixture.mdx",
-					import.meta.url,
-				),
+				new URL("../src/content/posts/hello-daily.md", import.meta.url),
 			),
 		});
 		assert.equal(tree.children[0].data.hName, "a");
 		assert.match(tree.children[0].data.hProperties.class, /card-wiki-link/);
-		assert.equal(tree.children[0].children[0].data.hName, "span");
-		assert.equal(
-			tree.children[0].children[0].children[0].url,
-			"./guide/cover.webp",
+		assert.equal(tree.children[0].data.hProperties.href, "/posts/hello-daily/");
+		// hello-daily 未配置封面，卡片不渲染封面节点，首个子节点为信息容器
+		assert.equal(tree.children[0].children[0].data.hName, "div");
+		assert.match(
+			tree.children[0].children[0].data.hProperties.class,
+			/wlc-info/,
 		);
 		assert.equal(
-			tree.children[0].children[0].data.hProperties.dataNoEnhance,
-			true,
+			tree.children[0].children[0].children[0].children[0].value,
+			"你好，世界：博客的第一篇日常",
 		);
 		assert.equal(tree.children[1].children[1].type, "link");
-		assert.equal(tree.children[1].children[1].children[0].value, "the guide");
+		assert.equal(tree.children[1].children[1].url, "/posts/hello-daily/");
+		assert.equal(tree.children[1].children[1].children[0].value, "the daily");
 	});
 });
