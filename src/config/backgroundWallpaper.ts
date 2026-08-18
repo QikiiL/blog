@@ -1,21 +1,10 @@
 import type { FullscreenWallpaperConfig } from "../types/config";
+import { siteConfig } from "./siteConfig";
 
+// 全屏壁纸默认复用顶部横幅的图片，只需维护 siteConfig.banner.src 一处即可。
 export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	enable: true,
-	src: {
-		desktop: [
-			"/assets/desktop-banner/1.webp",
-			"/assets/desktop-banner/2.webp",
-			"/assets/desktop-banner/3.webp",
-			"/assets/desktop-banner/4.webp",
-		],
-		mobile: [
-			"/assets/mobile-banner/1.webp",
-			"/assets/mobile-banner/2.webp",
-			"/assets/mobile-banner/3.webp",
-			"/assets/mobile-banner/4.webp",
-		],
-	},
+	src: siteConfig.banner.src,
 	position: "center",
 	carousel: {
 		enable: true,
