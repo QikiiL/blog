@@ -5,6 +5,9 @@ on:
   # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
   push:
     branches: [ main ]
+  # 内容仓库推送后通过 Repository Dispatch 触发本仓库重新构建
+  repository_dispatch:
+    types: [ content-updated ]
   # 允许你在 GitHub 上的 Actions 标签中手动触发此"工作流程"
   workflow_dispatch:
 
@@ -21,7 +24,7 @@ jobs:
         with:
           submodules: true  # 支持 Git Submodule 模式
           token: ${{ secrets.GITHUB_TOKEN }}  # 自动访问同账号下的私有仓库
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,20 +34,20 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           run_install: false
-          
+
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
-      
+
       - name: Build site
         run: pnpm run build
         env:
-          # CI 环境没有 .env 文件，显式禁用内容同步以保证构建行为确定
-          # （ENABLE_CONTENT_SYNC 已显式设为 false：本仓库使用本地内容）
-          ENABLE_CONTENT_SYNC: false
-          # 如需启用内容分离，配置以下变量并移除上方对 ENABLE_CONTENT_SYNC 的禁用
-          # CONTENT_REPO_URL: ${{ secrets.CONTENT_REPO_URL }}
-          # USE_SUBMODULE: true
-      
+          # 内容分离模式：构建前从内容仓库同步 posts/spec/data/images/overrides
+          ENABLE_CONTENT_SYNC: true
+          # 在 GitHub 仓库 Settings → Secrets and variables → Actions 中配置
+          # CONTENT_REPO_URL 为内容仓库地址（例如 https://github.com/QikiiL/blog-content.git）
+          CONTENT_REPO_URL: ${{ secrets.CONTENT_REPO_URL }}
+          USE_SUBMODULE: false
+
       - name: Deploy to pages branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
