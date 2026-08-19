@@ -30,15 +30,11 @@
     <published>2026-08-17T00:00:00.000Z</published>
     <updated>2026-08-17T00:00:00.000Z</updated>
     <summary>博客开张，写点碎碎念。</summary>
-    <content type="html"><![CDATA[<p>博客终于搭起来了！以后编程的收获写进「编程」分类，生活里的碎碎念就放在「日常」这里。</p>
-<p>先立几个小目标：</p>
-<ul>
-<li>每月至少更新两篇文章</li>
-<li>把课程里觉得有意思的实验和坑都记下来</li>
-<li>交几个友链</li>
-</ul>
+    <content type="html"><![CDATA[<p>博客终于搭起来了！</p>
+<p>以后编程的收获写进「编程」分类，生活里的碎碎念就放在「随笔」这里。</p>
+<p>还有一些有意思的东西就写进「分享」里吧。</p>
 <p>那么，开始吧。</p>]]></content>
     <author><name>QikiiL</name></author>
-    <category term="日常"/>
+    <category term="随笔"/>
   </entry>
 </feed>
