@@ -13,7 +13,7 @@
     <published>2026-08-17T00:00:00.000Z</published>
     <updated>2026-08-17T00:00:00.000Z</updated>
     <summary>记录我用 Windows 电脑，基于 Astro 框架和 Mizuki 主题，把一个二次元风格的个人博客部署到 GitHub Pages 的全过程。</summary>
-    <content type="html"><![CDATA[<p>一直想写一个自己的博客：能写写代码学习中的感想，也能记记日常。市面上方案很多，我最终选了 <strong>Astro + Mizuki 主题</strong>，托管在 <strong>GitHub Pages</strong> 上——全免费。这篇文章记录搭建的全过程，也当作博客的第一篇文章。</p>
+    <content type="html"><![CDATA[<p>一直想写一个自己的博客：能写写代码学习中的感想，也能记记日常。市面上方案很多，我最终选了 <strong>Astro + Mizuki 主题</strong>，托管在 <strong>GitHub Pages</strong> 上——全免费。这篇文章记录搭建的全过程，也当作博客的第一篇正式文章。</p>
 <section class="markdown-section"><h2 id="为什么选-astro--mizuki">为什么选 Astro + Mizuki<a class="anchor" href="https://qikiil.github.io/blog/posts/blog-setup-journey/#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89-astro--mizuki"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><ul>
 <li><strong>Astro</strong> 是内容驱动型网站的静态站点框架，默认零 JS 发往浏览器，构建产物是纯静态页面，非常适合博客，也天然适配 GitHub Pages。</li>
 <li><strong>Mizuki</strong> 是基于 Astro 的开源博客主题（Apache-2.0），自带明暗主题、Pagefind 全文搜索、文章分类标签、目录、KaTeX/Mermaid、代码高亮等能力，开箱即用。</li>
