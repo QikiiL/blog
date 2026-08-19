@@ -1,0 +1,18 @@
+{
+  "owner": "dsh-paste-input",
+  "version": 1,
+  "sessionId": "session-4a295c7f-7be4-4528-9d08-cb4eb86e8570",
+  "createdAt": "2026-08-19T13:46:08.316Z",
+  "committedAt": "2026-08-19T13:46:08.377Z",
+  "totalBytes": 1639343,
+  "files": [
+    {
+      "index": 0,
+      "originalPath": "session.jsonl",
+      "actualPath": "session.jsonl",
+      "size": 1639343,
+      "type": "",
+      "lastModified": 1787146932000
+    }
+  ]
+}

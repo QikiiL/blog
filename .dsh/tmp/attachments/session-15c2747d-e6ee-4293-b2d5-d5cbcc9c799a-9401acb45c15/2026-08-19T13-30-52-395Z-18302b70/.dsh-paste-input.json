@@ -1,0 +1,18 @@
+{
+  "owner": "dsh-paste-input",
+  "version": 1,
+  "sessionId": "session-15c2747d-e6ee-4293-b2d5-d5cbcc9c799a",
+  "createdAt": "2026-08-19T13:30:52.343Z",
+  "committedAt": "2026-08-19T13:30:52.395Z",
+  "totalBytes": 24708,
+  "files": [
+    {
+      "index": 0,
+      "originalPath": "image.png",
+      "actualPath": "image.png",
+      "size": 24708,
+      "type": "image/png",
+      "lastModified": 1787146237650
+    }
+  ]
+}
