@@ -88,7 +88,10 @@ import { siteConfig as siteDefaults } from "./siteConfig";
 const globalConfig = loadGlobalConfig();
 
 // ─── 站点核心 ───────────────────────────────────────────────
-export const siteConfig = withOverride("siteConfig", siteDefaults);
+export const siteConfig = withOverride(
+	"siteConfig",
+	deepMerge(siteDefaults, globalConfig.site ?? {}),
+);
 
 // SITE_LANG 从合并后的站点配置派生，覆盖 siteConfig.lang 后会一并生效。
 // 注意：commentConfig.ts 在模块顶层引用了 siteConfig.ts 里的同名常量填充评论
@@ -132,7 +135,10 @@ export const permalinkConfig = withOverride(
 export const pioConfig = withOverride("pioConfig", pioDefaults);
 
 // ─── 个人资料 ───────────────────────────────────────────────
-export const profileConfig = withOverride("profileConfig", profileDefaults);
+export const profileConfig = withOverride(
+	"profileConfig",
+	deepMerge(profileDefaults, globalConfig.profile ?? {}),
+);
 export const randomPostsConfig = withOverride(
 	"randomPostsConfig",
 	randomPostsDefaults,

@@ -20,6 +20,18 @@ export interface GlobalConfig {
 			external?: boolean;
 		};
 	};
+	site?: {
+		title?: string;
+		subtitle?: string;
+		siteURL?: string;
+		siteStartDate?: string;
+		timeZone?: string;
+	};
+	profile?: {
+		name?: string;
+		bio?: string;
+		avatar?: string;
+	};
 }
 
 const globalModules = import.meta.glob<{ default?: unknown }>(
