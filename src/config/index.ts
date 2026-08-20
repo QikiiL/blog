@@ -64,12 +64,14 @@
  */
 
 import { announcementConfig as announcementDefaults } from "./announcementConfig";
+import { deepMerge } from "./deepMerge";
 import { fullscreenWallpaperConfig as fullscreenWallpaperDefaults } from "./backgroundWallpaper";
 import { commentConfig as commentDefaults } from "./commentConfig";
 import { sakuraConfig as sakuraDefaults } from "./effectsConfig";
 import { expressiveCodeConfig as expressiveCodeDefaults } from "./expressiveCodeConfig";
 import { footerConfig as footerDefaults } from "./footerConfig";
 import { licenseConfig as licenseDefaults } from "./licenseConfig";
+import { loadGlobalConfig } from "./globalConfigLoader";
 import { markdownConfig as markdownDefaults } from "./markdownConfig";
 import { musicPlayerConfig as musicPlayerDefaults } from "./musicConfig";
 import { navBarConfig as navBarDefaults } from "./navBarConfig";
@@ -82,6 +84,8 @@ import { relatedPostsConfig as relatedPostsDefaults } from "./relatedPostsConfig
 import { shareConfig as shareDefaults } from "./shareConfig";
 import { sidebarLayoutConfig as sidebarLayoutDefaults } from "./sidebarConfig";
 import { siteConfig as siteDefaults } from "./siteConfig";
+// TinaCMS 全局配置（从 content/global/global.json 同步过来）
+const globalConfig = loadGlobalConfig();
 
 // ─── 站点核心 ───────────────────────────────────────────────
 export const siteConfig = withOverride("siteConfig", siteDefaults);
@@ -149,7 +153,7 @@ export const sidebarLayoutConfig = withOverride(
 
 export const announcementConfig = withOverride(
 	"announcementConfig",
-	announcementDefaults,
+	deepMerge(announcementDefaults, globalConfig.announcement ?? {}),
 );
 
 // ─── Widget 配置聚合（供 Swup 等运行时使用）────────────────
