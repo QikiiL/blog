@@ -26,6 +26,12 @@ export interface GlobalConfig {
 		siteURL?: string;
 		siteStartDate?: string;
 		timeZone?: string;
+		banner?: {
+			homeText?: {
+				title?: string;
+				subtitle?: string[];
+			};
+		};
 	};
 	profile?: {
 		name?: string;
