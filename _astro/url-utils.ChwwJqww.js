@@ -1,0 +1,1 @@
+import"./translation.D3F4lWC4.js";import"./config.BAw-jmQr.js";import"./date-utils.B69cKOPD.js";function i(r,e){return r.replace(/^\/|\/$/g,"").toLowerCase()===e.replace(/^\/|\/$/g,"").toLowerCase()}function o(...r){return r.join("/").replace(/\/+/g,"/")}function p(r){return o("","/blog/",r)}export{p as n,i as t};
