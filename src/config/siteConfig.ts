@@ -6,7 +6,7 @@ const SITE_LANG = "zh_CN"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
 export const siteConfig: SiteConfig = {
 	title: "QikiiL's Blog",
 	subtitle: "编程感想与日常随笔",
-	siteURL: "https://qikiil.github.io/blog/", // 请替换为你的站点URL，以斜杠结尾
+	siteURL: "https://qikiil.cc.cd/", // 请替换为你的站点URL，以斜杠结尾
 	siteStartDate: "2026-08-17", // 站点开始运行日期，用于站点统计组件计算运行天数
 	timeZone: "Asia/Shanghai", // 文章日期使用的 IANA 时区，可改为 Asia/Tokyo、Europe/Berlin 等
 

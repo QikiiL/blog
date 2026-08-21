@@ -102,7 +102,7 @@ export default defineConfig({
 		: [],
 
 	site: siteConfig.siteURL,
-	base: "/blog/",
+	base: "/",
 	trailingSlash: "always",
 	compressHTML: true,
 
