@@ -68,3 +68,6 @@ src/data/bilibili-data.json
 *.psd~
 *.cmo3
 *.vtube.json
+
+# DSH tooling temp files
+.dsh/
