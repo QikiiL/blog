@@ -1,1 +1,0 @@
-import"./translation.CWyl26lj.js";import"./config.BUWZIWRG.js";import"./date-utils.DMFtVL24.js";function i(r,e){return r.replace(/^\/|\/$/g,"").toLowerCase()===e.replace(/^\/|\/$/g,"").toLowerCase()}function o(...r){return r.join("/").replace(/\/+/g,"/")}function p(r){return o("","/blog/",r)}export{p as n,i as t};
