@@ -3,4 +3,4 @@ Disallow: /
 Allow: /$
 Allow: /posts/
 
-Sitemap: https://qikiil.cc.cd/sitemap-index.xml
+Sitemap: https://qikiil.me/sitemap-index.xml
