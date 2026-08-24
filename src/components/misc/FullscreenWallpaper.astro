@@ -152,7 +152,7 @@ const renderGroups = [
 								position={position}
 								widths={group.key === "mobile" ? [640, 1024, 1536] : [1024, 1536, 2048, 2560, 3840]}
 								sizes="100vw"
-								loading={index === 0 ? "eager" : "lazy"}
+								loading="lazy"
 								fetchpriority={index === 0 ? "high" : "low"}
 								quality={group.key === "mobile" ? Math.round(wallpaperQuality * 0.9) : wallpaperQuality}
 								formats={wallpaperFormats}
@@ -171,6 +171,8 @@ const renderGroups = [
 	(function() {
 		const container = document.getElementById('wallpaper-single-container');
 		if (!container) return;
+		// 非 overlay 模式下容器会被隐藏，此时不要创建/加载图片
+		if (container.style.display === 'none') return;
 
 		const getRandomImage = (images, storageKey) => {
 			if (images.length === 0) {return null;}

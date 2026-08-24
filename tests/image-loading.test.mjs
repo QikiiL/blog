@@ -55,15 +55,13 @@ describe("Default image loading boundary", () => {
 		assert.match(bannerSource, /loading="lazy"[\s\S]*fetchpriority="low"/);
 	});
 
-	it("prioritizes the first wallpaper image and keeps the rest low priority", () => {
-		assert.match(
-			wallpaperSource,
-			/loading=\{index === 0 \? "eager" : "lazy"\}/,
-		);
+	it("keeps fullscreen wallpaper lazy while prioritizing the visible first image", () => {
+		assert.match(wallpaperSource, /loading="lazy"/);
 		assert.match(
 			wallpaperSource,
 			/fetchpriority=\{index === 0 \? "high" : "low"\}/,
 		);
+		assert.match(wallpaperSource, /display: \$\{index === 0 \? "block" : "none"\}/);
 	});
 
 	it("allows mirrored public assets to enter the Astro image pipeline", () => {
