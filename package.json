@@ -7,7 +7,7 @@
     "init-content": "node scripts/init-content-repo.js",
     "export-config": "node --experimental-transform-types scripts/export-config.mjs",
     "predev": "node scripts/sync-content.js || true",
-    "prebuild": "node scripts/sync-content.js || true",
+    "prebuild": "node scripts/sync-content.js || true && node scripts/prepare-fonts.mjs",
     "dev": "astro dev",
     "start": "astro dev",
     "check": "astro check",

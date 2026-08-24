@@ -152,8 +152,8 @@ const renderGroups = [
 								position={position}
 								widths={group.key === "mobile" ? [640, 1024, 1536] : [1024, 1536, 2048, 2560, 3840]}
 								sizes="100vw"
-								loading="lazy"
-								fetchpriority="low"
+								loading={index === 0 ? "eager" : "lazy"}
+								fetchpriority={index === 0 ? "high" : "low"}
 								quality={group.key === "mobile" ? Math.round(wallpaperQuality * 0.9) : wallpaperQuality}
 								formats={wallpaperFormats}
 								overlay={false}
@@ -201,8 +201,8 @@ const renderGroups = [
 					class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${positionClass}"
 					style="transform: translateZ(0); backface-visibility: hidden; will-change: opacity; opacity: 1;"
 					decoding="async"
-					loading="lazy"
-					fetchpriority="low"
+					loading="eager"
+					fetchpriority="high"
 				/>
 			`;
 			container.appendChild(desktopDiv);
@@ -219,8 +219,8 @@ const renderGroups = [
 					class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${positionClass}"
 					style="transform: translateZ(0); backface-visibility: hidden; will-change: opacity; opacity: 1;"
 					decoding="async"
-					loading="lazy"
-					fetchpriority="low"
+					loading="eager"
+					fetchpriority="high"
 				/>
 			`;
 			container.appendChild(mobileDiv);

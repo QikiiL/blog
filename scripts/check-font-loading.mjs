@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = resolve(projectRoot, "dist");
-const MAX_CUSTOM_FONT_BYTES = 8 * 1024 * 1024;
+const MAX_CUSTOM_FONT_BYTES = 2 * 1024 * 1024;
 const ASTRO_ASSET_SEGMENT = "/_astro/";
 const FONT_REFERENCE_PATTERN =
 	/[^\s"'()<>]+?\.(?:woff2?|ttf|otf)(?:[?#][^\s"'()<>]*)?/gi;
