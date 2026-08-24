@@ -265,6 +265,31 @@ const renderGroups = [
 			}
 		}
 
+		// 预加载下一张壁纸，避免切换时等待网络
+		function preloadImage(item) {
+			const img = item.querySelector('img');
+			const source = item.querySelector('source[srcset]');
+			if (!img && !source) return;
+			const preload = new Image();
+			if (source && source.getAttribute('srcset')) {
+				preload.srcset = source.getAttribute('srcset');
+				preload.sizes = source.getAttribute('sizes') || '100vw';
+			}
+			if (img && img.getAttribute('src') && !img.getAttribute('src').startsWith('data:')) {
+				preload.src = img.getAttribute('src');
+			} else if (source && source.getAttribute('srcset')) {
+				const firstSrc = source.getAttribute('srcset').split(',')[0].trim().split(/\s+/)[0];
+				preload.src = firstSrc;
+			}
+		}
+
+		function preloadNext(stateItem) {
+			const { items, currentIndex } = stateItem;
+			if (items.length <= 1) return;
+			const nextIndex = (currentIndex + 1) % items.length;
+			preloadImage(items[nextIndex]);
+		}
+
 		// 切换下一张
 		function switchNextImage(stateItem) {
 			const { items, currentIndex } = stateItem;
@@ -276,11 +301,14 @@ const renderGroups = [
 			stateItem.currentIndex = nextIndex;
 
 			sessionStorage.setItem(STORAGE_KEY, nextIndex.toString());
+
+			preloadNext(stateItem);
 		}
 
 		function start() {
 			state.forEach(s => {
 				if (s.active && !s.timer) {
+					preloadNext(s);
 					s.timer = setInterval(() => {
 						if (!document.body.contains(s.items[0])) {
 							stop();

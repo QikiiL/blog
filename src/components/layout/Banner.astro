@@ -317,6 +317,33 @@ const bannerFormats = getImageFormats();
 					};
 				}
 
+				// 预加载下一张轮播图，避免切换时等待网络
+				function preloadFrame(frameHtml) {
+					var tmp = document.createElement('div');
+					tmp.innerHTML = frameHtml;
+					var source = tmp.querySelector('source[srcset]');
+					var img = tmp.querySelector('img');
+					var preload = new Image();
+					if (source && source.getAttribute('srcset')) {
+						preload.srcset = source.getAttribute('srcset');
+						preload.sizes = source.getAttribute('sizes') || '100vw';
+					}
+					if (img && img.getAttribute('src') && img.getAttribute('src').indexOf('data:') !== 0) {
+						preload.src = img.getAttribute('src');
+					} else if (source && source.getAttribute('srcset')) {
+						var firstSrc = source.getAttribute('srcset').split(',')[0].trim().split(/\s+/)[0];
+						preload.src = firstSrc;
+					}
+				}
+
+				function preloadNext(slotClass, totalCount, type) {
+					var frames = window.__bannerCarouselFrames[slotClass];
+					if (!frames || frames.length <= 1) return;
+					var currentIndex = window.__bannerCarouselIndex[type];
+					var nextIndex = (currentIndex + 1) % frames.length;
+					preloadFrame(frames[nextIndex]);
+				}
+
 				// 断点检测（md = 768px）
 				function isSlotHiddenByBreakpoint(slot) {
 					var cl = slot.classList;
@@ -413,6 +440,7 @@ const bannerFormats = getImageFormats();
 					var currentIndex = window.__bannerCarouselIndex[type];
 					var nextIndex = (currentIndex + 1) % frames.length;
 					crossfadeToIndex(slotClass, totalCount, type, nextIndex);
+					preloadNext(slotClass, totalCount, type);
 				}
 
 				var timerId = null;
@@ -434,6 +462,9 @@ const bannerFormats = getImageFormats();
 						applyInitialKB('banner-image-slot-mobile');
 						applyInitialKB('banner-image-slot-desktop');
 					}
+
+					preloadNext('banner-image-slot-mobile', mobileCount, 'mobile');
+					preloadNext('banner-image-slot-desktop', desktopCount, 'desktop');
 
 					intervalStartTime = Date.now();
 					timerId = setInterval(function() {
@@ -533,6 +564,7 @@ const bannerFormats = getImageFormats();
 							var prev = (current - 1 + count) % count;
 							crossfadeToIndex(slotClass, count, type, prev);
 						}
+						preloadNext(slotClass, count, type);
 					}
 
 					touchStartX = 0;
