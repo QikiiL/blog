@@ -339,6 +339,8 @@ const bannerFormats = getImageFormats();
 				function preloadNext(slotClass, totalCount, type) {
 					var frames = window.__bannerCarouselFrames[slotClass];
 					if (!frames || frames.length <= 1) return;
+					var slot = container.querySelector('.' + slotClass);
+					if (!slot || isSlotHiddenByBreakpoint(slot)) return;
 					var currentIndex = window.__bannerCarouselIndex[type];
 					var nextIndex = (currentIndex + 1) % frames.length;
 					preloadFrame(frames[nextIndex]);

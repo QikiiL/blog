@@ -232,6 +232,8 @@ const renderGroups = [
 	function initFullscreenWallpaperCarousel() {
 		const container = document.querySelector('[data-fullscreen-wallpaper]');
 		if (!container) {return;}
+		// 非 overlay 模式下容器会被隐藏，此时不要启动轮播或预加载图片
+		if (container.style.display === 'none') {return;}
 
 		if (window.__wallpaper_cleanup) {
 			window.__wallpaper_cleanup();
@@ -283,7 +285,14 @@ const renderGroups = [
 			}
 		}
 
+		function isGroupVisible(stateItem) {
+			const group = stateItem.items[0]?.parentElement;
+			if (!group) return false;
+			return group.getClientRects().length > 0;
+		}
+
 		function preloadNext(stateItem) {
+			if (!isGroupVisible(stateItem)) return;
 			const { items, currentIndex } = stateItem;
 			if (items.length <= 1) return;
 			const nextIndex = (currentIndex + 1) % items.length;
