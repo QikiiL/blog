@@ -87,6 +87,21 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
 				}
 			}
 
+			restrictToPrimaryAPI() {
+				if (
+					window.Iconify &&
+					typeof window.Iconify.addAPIProvider === "function"
+				) {
+					try {
+						window.Iconify.addAPIProvider("", {
+							resources: ["https://api.iconify.design"],
+						});
+					} catch (error) {
+						console.warn("Failed to configure Iconify API provider:", error);
+					}
+				}
+			}
+
 			loadScript(timeout) {
 				return new Promise((resolve, reject) => {
 					// 检查是否已经存在
@@ -99,6 +114,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
 						'script[src*="iconify-icon"]',
 					);
 					if (existingScript) {
+						this.restrictToPrimaryAPI();
 						this.waitForIconifyReady().then(resolve).catch(reject);
 						return;
 					}
@@ -116,6 +132,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
 
 					script.onload = () => {
 						clearTimeout(timeoutId);
+						this.restrictToPrimaryAPI();
 						this.waitForIconifyReady().then(resolve).catch(reject);
 					};
 
