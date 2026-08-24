@@ -143,7 +143,7 @@ const renderGroups = [
 						<div
 							class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${positionClass}`}
 							data-carousel-item={index}
-							style={`transform: translateZ(0); backface-visibility: hidden; will-change: opacity; opacity: ${index === 0 ? 1 : 0};`}
+							style={`transform: translateZ(0); backface-visibility: hidden; will-change: opacity; display: ${index === 0 ? "block" : "none"}; opacity: ${index === 0 ? 1 : 0};`}
 						>
 							<Image
 								src={src}
@@ -263,6 +263,7 @@ const renderGroups = [
 			const { items, currentIndex } = stateItem;
 			// 立即设置样式，防止视觉上跳回第一张
 			for (let i = 0; i < items.length; i++) {
+				items[i].style.display = i === currentIndex ? 'block' : 'none';
 				items[i].style.opacity = i === currentIndex ? '1' : '0';
 			}
 		}
@@ -303,13 +304,27 @@ const renderGroups = [
 		function switchNextImage(stateItem) {
 			const { items, currentIndex } = stateItem;
 			const nextIndex = (currentIndex + 1) % items.length;
-			
-			items[currentIndex].style.opacity = '0';
-			items[nextIndex].style.opacity = '1';
-			
+			const oldItem = items[currentIndex];
+			const newItem = items[nextIndex];
+
+			// 先让下一张可见但透明，再触发淡入淡出
+			newItem.style.display = 'block';
+			newItem.style.opacity = '0';
+			oldItem.style.opacity = '0';
+			// 强制一次回流，确保 opacity 0 已生效后再开始过渡
+			void newItem.offsetWidth;
+			newItem.style.opacity = '1';
+
 			stateItem.currentIndex = nextIndex;
 
 			sessionStorage.setItem(STORAGE_KEY, nextIndex.toString());
+
+			// 淡入完成后隐藏旧图，避免旧图仍参与渲染/懒加载
+			setTimeout(() => {
+				if (stateItem.currentIndex !== items.indexOf(oldItem)) {
+					oldItem.style.display = 'none';
+				}
+			}, 1000);
 
 			preloadNext(stateItem);
 		}
