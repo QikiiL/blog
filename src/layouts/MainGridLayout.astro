@@ -4,7 +4,6 @@ import { SidebarTOC } from "@components/features/toc";
 import Banner from "@components/layout/Banner.astro";
 import RightSideBar from "@components/layout/RightSideBar.astro";
 import FullscreenWallpaper from "@components/misc/FullscreenWallpaper.astro";
-import IconifyLoader from "@components/misc/IconifyLoader.astro";
 import Footer from "@components/organisms/footer/Footer.astro";
 import Navbar from "@components/organisms/navigation/Navbar.astro";
 import SideBar from "@components/widgets/sidebar/SideBar.astro";
@@ -136,7 +135,6 @@ const defaultPostListLayout = siteConfig.postListLayout?.defaultMode || "list";
 	<FullscreenWallpaper config={fullscreenWallpaperConfig} />
 
 	<!-- 全局图标加载器 -->
-	<IconifyLoader />
 
 	<!-- Navbar -->
 	<slot slot="head" name="head" />
