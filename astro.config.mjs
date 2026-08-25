@@ -349,6 +349,14 @@ export default defineConfig({
 			},
 		},
 		build: {
+			// 仅将图片资源（png/jpg/jpeg/webp）指向国内 CDN 镜像，其他资源保持相对路径
+			assetsPrefix: {
+				png: "https://cdn.jsdmirror.com",
+				jpg: "https://cdn.jsdmirror.com",
+				jpeg: "https://cdn.jsdmirror.com",
+				webp: "https://cdn.jsdmirror.com",
+				fallback: "",
+			},
 			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大
 			assetsInlineLimit: 4096,
 			// CSS 代码分割

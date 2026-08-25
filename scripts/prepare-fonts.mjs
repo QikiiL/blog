@@ -28,13 +28,11 @@ function codepointsInRange(start, end) {
 	return points;
 }
 
-// 始终保留的基础字符集：ASCII 可打印字符、CJK 标点、全角字符、日文假名。
+// 始终保留的基础字符集：ASCII 可打印字符、CJK 标点与常用符号。
+// 日文假名、全角字符等由扫描到的实际内容决定，不再无条件全部保留。
 const alwaysInclude = new Set([
 	...codepointsInRange(0x20, 0x7e),
 	...codepointsInRange(0x3000, 0x303f),
-	...codepointsInRange(0xff01, 0xff5e),
-	...codepointsInRange(0x3041, 0x3096),
-	...codepointsInRange(0x30a1, 0x30fa),
 	0x00b7, 0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2026,
 	0x2022, 0x203b,
 ]);
