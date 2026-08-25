@@ -75,6 +75,10 @@ function processHtml(content) {
 		(_match, prefix, value, suffix) => prefix + processSrcset(value) + suffix,
 	);
 	content = content.replace(
+		/(\bhref=")([^"]*)(")/g,
+		(_match, prefix, value, suffix) => prefix + prefixImageUrl(value) + suffix,
+	);
+	content = content.replace(
 		/(url\()(['"]?)([^)'"]+)(\2\))/g,
 		(_match, prefix, quote, value, suffix) =>
 			prefix + quote + prefixImageUrl(value) + suffix,
