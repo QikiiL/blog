@@ -9,7 +9,17 @@ const distDir = resolve(projectRoot, "dist");
 // 站点通过 GitHub Pages 部署，产物在仓库的 `pages` 分支上（dist 根目录即仓库根目录）。
 const CDN = "https://cdn.jsdmirror.com";
 const CDN_BASE = `${CDN}/gh/QikiiL/blog@pages`;
-const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp"]);
+// 需要走 CDN 的静态资源扩展名：图片 + 字体
+const CDN_EXTENSIONS = new Set([
+	".png",
+	".jpg",
+	".jpeg",
+	".webp",
+	".woff",
+	".woff2",
+	".ttf",
+	".otf",
+]);
 
 async function collectFiles(directory) {
 	const entries = await readdir(directory, { withFileTypes: true });
@@ -33,7 +43,7 @@ function prefixImageUrl(url) {
 		return raw;
 	}
 	const pathname = raw.split(/[?#]/, 1)[0];
-	if (!IMAGE_EXTENSIONS.has(extname(pathname).toLowerCase())) {
+	if (!CDN_EXTENSIONS.has(extname(pathname).toLowerCase())) {
 		return raw;
 	}
 	if (raw.startsWith("/")) {
@@ -91,10 +101,12 @@ for (const file of files) {
 	if (updated !== original) {
 		await writeFile(file, updated);
 		changedFiles += 1;
-		replacedUrls += (original.match(/cdn\.jsdmirror\.com/g) ?? []).length;
+		replacedUrls +=
+			(updated.match(/cdn\.jsdmirror\.com/g) ?? []).length -
+			(original.match(/cdn\.jsdmirror\.com/g) ?? []).length;
 	}
 }
 
 console.log(
-	`Image CDN prefix applied: ${changedFiles} file(s) changed, ${replacedUrls} prefixed URL(s).`,
+	`CDN prefix applied: ${changedFiles} file(s) changed, ${replacedUrls} prefixed URL(s).`,
 );

@@ -349,15 +349,6 @@ export default defineConfig({
 			},
 		},
 		build: {
-			// 仅将图片资源（png/jpg/jpeg/webp）指向国内 CDN 镜像，其他资源保持相对路径。
-			// cdn.jsdmirror.com 要求 /gh/<owner>/<repo>@<branch>/<path> 格式，站点产物部署在 `pages` 分支。
-			assetsPrefix: {
-				png: "https://cdn.jsdmirror.com/gh/QikiiL/blog@pages",
-				jpg: "https://cdn.jsdmirror.com/gh/QikiiL/blog@pages",
-				jpeg: "https://cdn.jsdmirror.com/gh/QikiiL/blog@pages",
-				webp: "https://cdn.jsdmirror.com/gh/QikiiL/blog@pages",
-				fallback: "",
-			},
 			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大
 			assetsInlineLimit: 4096,
 			// CSS 代码分割
