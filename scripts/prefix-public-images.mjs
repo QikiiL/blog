@@ -4,7 +4,11 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = resolve(projectRoot, "dist");
+// cdn.jsdmirror.com 是 jsDelivr 的国内镜像，要求按
+// https://cdn.jsdmirror.com/gh/<owner>/<repo>@<branch>/<path> 格式访问。
+// 站点通过 GitHub Pages 部署，产物在仓库的 `pages` 分支上（dist 根目录即仓库根目录）。
 const CDN = "https://cdn.jsdmirror.com";
+const CDN_BASE = `${CDN}/gh/QikiiL/blog@pages`;
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp"]);
 
 async function collectFiles(directory) {
@@ -33,9 +37,9 @@ function prefixImageUrl(url) {
 		return raw;
 	}
 	if (raw.startsWith("/")) {
-		return CDN + raw;
+		return CDN_BASE + raw;
 	}
-	return `${CDN}/${raw}`;
+	return `${CDN_BASE}/${raw}`;
 }
 
 function processSrcset(value) {
