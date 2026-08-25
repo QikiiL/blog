@@ -941,6 +941,7 @@ html.is-page-transitioning #header-waves {
 
 .banner-page-overlay .page-overlay-title {
   will-change: opacity, transform, filter;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .banner-page-overlay .page-overlay-title.anim-in {
