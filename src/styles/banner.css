@@ -949,7 +949,7 @@ html.is-page-transitioning #header-waves {
 }
 
 .banner-page-overlay .page-overlay-meta {
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .banner-page-overlay .page-overlay-meta.anim-in {
