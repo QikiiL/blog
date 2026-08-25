@@ -60,6 +60,7 @@ export default defineConfig({
 					cssVariable: "--font-jetbrains-mono",
 					provider: fontProviders.fontsource(),
 					styles: ["normal", "italic"],
+					display: "optional",
 				},
 				{
 					name: "ZenMaruGothic-Medium",
@@ -79,6 +80,7 @@ export default defineConfig({
 					// font prevents the following CJK font from ever being considered.
 					fallbacks: [],
 					optimizedFallbacks: false,
+					display: "optional",
 				},
 				{
 					name: "Loli",
@@ -97,6 +99,7 @@ export default defineConfig({
 					// CJK font stack.
 					fallbacks: [],
 					optimizedFallbacks: false,
+					display: "optional",
 				},
 			]
 		: [],
