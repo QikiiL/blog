@@ -21,7 +21,6 @@ export * from "./widgets/calendar";
 export * from "./widgets/card-toc";
 export * from "./widgets/categories";
 export * from "./widgets/common";
-export * from "./widgets/music-player";
 export * from "./widgets/profile";
 export * from "./widgets/sidebar";
 export * from "./widgets/site-stats";

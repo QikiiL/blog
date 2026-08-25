@@ -22,7 +22,6 @@ export const SWUP_SELECTORS = {
 	persistElements: [
 		"#navbar-wrapper",
 		"#sidebar",
-		".music-player",
 	],
 
 	// Banner 相关

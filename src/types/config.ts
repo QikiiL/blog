@@ -366,17 +366,6 @@ export interface AnnouncementConfig {
 	};
 }
 
-export interface MusicPlayerConfig {
-	enable: boolean; // 是否启用音乐播放器功能
-	showFloatingPlayer: boolean; // 是否显示悬浮播放器 UI
-	floatingEntryMode?: "default" | "fab"; // 悬浮入口模式：默认独立播放器或集成到 FAB 组
-	mode: "meting" | "local"; // 音乐播放器模式
-	meting_api: string; // Meting API 地址
-	id: string; // 歌单ID
-	server: string; // 音乐源服务器
-	type: string; // 音乐类型
-}
-
 export interface FooterConfig {
 	enable: boolean; // 是否启用Footer HTML注入功能
 	customHtml?: string; // 自定义HTML内容，用于添加备案号等信息
@@ -390,8 +379,6 @@ export type WidgetComponentType =
 	| "tags"
 	| "toc"
 	| "card-toc" // 卡片式目录组件
-	| "music-player"
-	| "music-sidebar"
 	| "pio" // 添加 pio 组件类型
 	| "site-stats" // 站点统计组件
 	| "calendar" // 日历组件

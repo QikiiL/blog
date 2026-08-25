@@ -19,7 +19,6 @@ const OVERRIDABLE_CONFIGS = [
 	"fullscreenWallpaperConfig",
 	"licenseConfig",
 	"markdownConfig",
-	"musicPlayerConfig",
 	"navBarConfig",
 	"permalinkConfig",
 	"pioConfig",

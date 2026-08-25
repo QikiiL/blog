@@ -28,7 +28,6 @@ class ThemeOptimizer {
 		this.heavySelectors = [
 			".float-panel",
 			"#navbar",
-			".music-player",
 			"#mobile-toc-panel",
 			"#nav-menu-panel",
 			"#search-panel",
@@ -407,7 +406,6 @@ class ThemeOptimizer {
 		this.tempStyleSheet.textContent = `
       /* 临时禁用重型元素的过渡和动画 */
       .is-theme-transitioning .float-panel:not(.float-panel-closed),
-      .is-theme-transitioning .music-player,
       .is-theme-transitioning .widget,
       .is-theme-transitioning .post-card,
       .is-theme-transitioning #navbar *,

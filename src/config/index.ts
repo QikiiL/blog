@@ -18,7 +18,6 @@
  * commentConfig                 │ commentConfig.ts           │ 评论系统（Twikoo / Giscus 配置）
  * shareConfig                   │ shareConfig.ts             │ 分享功能开关
  * announcementConfig            │ announcementConfig.ts      │ 公告栏（标题、内容、链接）
- * musicPlayerConfig             │ musicConfig.ts             │ 音乐播放器（本地 / Meting 模式）
  * footerConfig                  │ footerConfig.ts            │ 页脚自定义 HTML
  * sidebarLayoutConfig           │ sidebarConfig.ts           │ 侧边栏组件布局（排序、动画、响应式断点）
  * sakuraConfig                  │ effectsConfig.ts           │ 樱花飘落特效（数量、速度、透明度）
@@ -73,7 +72,6 @@ import { footerConfig as footerDefaults } from "./footerConfig";
 import { licenseConfig as licenseDefaults } from "./licenseConfig";
 import { loadGlobalConfig } from "./globalConfigLoader";
 import { markdownConfig as markdownDefaults } from "./markdownConfig";
-import { musicPlayerConfig as musicPlayerDefaults } from "./musicConfig";
 import { navBarConfig as navBarDefaults } from "./navBarConfig";
 import { withOverride } from "./overrideLoader";
 import { permalinkConfig as permalinkDefaults } from "./permalinkConfig";
@@ -120,12 +118,6 @@ export const footerConfig = withOverride("footerConfig", footerDefaults);
 export const licenseConfig = withOverride("licenseConfig", licenseDefaults);
 export const markdownConfig = withOverride("markdownConfig", markdownDefaults);
 
-// ─── 多媒体 ─────────────────────────────────────────────────
-export const musicPlayerConfig = withOverride(
-	"musicPlayerConfig",
-	musicPlayerDefaults,
-);
-
 // ─── 导航栏 ─────────────────────────────────────────────────
 export const navBarConfig = withOverride("navBarConfig", navBarDefaults);
 export const permalinkConfig = withOverride(
@@ -166,7 +158,6 @@ export const announcementConfig = withOverride(
 export const widgetConfigs = {
 	profile: profileConfig,
 	announcement: announcementConfig,
-	music: musicPlayerConfig,
 	layout: sidebarLayoutConfig,
 	sakura: sakuraConfig,
 	fullscreenWallpaper: fullscreenWallpaperConfig,

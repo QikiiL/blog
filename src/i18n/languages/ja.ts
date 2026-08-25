@@ -100,31 +100,6 @@ export const ja: Translation = {
 		"申し訳ありません、アクセスしたページは存在しないか移動されています。",
 	[Key.backToHome]: "ホームに戻る",
 
-	// 音楽プレーヤー
-	[Key.musicPlayer]: "音楽プレーヤー",
-	[Key.musicPlayerShow]: "音楽プレーヤーを表示",
-	[Key.musicPlayerHide]: "音楽プレーヤーを非表示",
-	[Key.musicPlayerExpand]: "音楽プレーヤーを展開",
-	[Key.musicPlayerCollapse]: "音楽プレーヤーを折りたたむ",
-	[Key.musicPlayerPause]: "一時停止",
-	[Key.musicPlayerPlay]: "再生",
-	[Key.musicPlayerPrevious]: "前へ",
-	[Key.musicPlayerNext]: "次へ",
-	[Key.musicPlayerShuffle]: "シャッフル",
-	[Key.musicPlayerRepeat]: "リピート",
-	[Key.musicPlayerRepeatOne]: "1曲のみリピート",
-	[Key.musicPlayerVolume]: "音量のコントロール",
-	[Key.musicPlayerProgress]: "再生状況",
-	[Key.musicPlayerCover]: "カバー",
-	[Key.musicPlayerPlaylist]: "プレイリスト",
-	[Key.musicPlayerLoading]: "読み込み中...",
-	[Key.musicPlayerErrorPlaylist]: "プレイリストを取得できませんでした。",
-	[Key.musicPlayerErrorSong]:
-		"曲の読み込みに失敗しました。次の曲を再生します。",
-	[Key.musicPlayerErrorEmpty]: "プレイリストに利用可能な曲がありません。",
-	[Key.unknownSong]: "不明な曲",
-	[Key.unknownArtist]: "不明なアーティスト",
-
 	// アルバムページ
 	[Key.albums]: "アルバム",
 	[Key.albumsSubtitle]: "人生の美しい瞬間の記録です",
