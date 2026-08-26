@@ -29,6 +29,9 @@ pnpm-debug.log*
 # TinaCMS global config synced from the content repository
 /src/config/global/
 
+# TinaCMS friends data synced from the content repository
+/src/config/friends/
+
 # output of `pnpm export-config`
 /overrides-export/
 

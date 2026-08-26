@@ -103,6 +103,8 @@ const contentMappings = [
 	{ src: "overrides", dest: "src/config/overrides", copy: true },
 	// TinaCMS 全局配置 JSON 同样复制进代码仓库，供构建时读取
 	{ src: "global", dest: "src/config/global", copy: true },
+	// TinaCMS 友链数据 JSON
+	{ src: "friends", dest: "src/config/friends", copy: true },
 ];
 
 for (const mapping of contentMappings) {
