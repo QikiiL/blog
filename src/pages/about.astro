@@ -15,7 +15,9 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
-const title = i18n(I18nKey.about);
+// 优先使用 CMS 里编辑的标题，留空时回退到 i18n 默认文案
+const title =
+	(aboutPost.data as { title?: string }).title || i18n(I18nKey.about);
 ---
 
 <MainGridLayout title={title}>
