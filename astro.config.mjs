@@ -60,7 +60,9 @@ export default defineConfig({
 					cssVariable: "--font-jetbrains-mono",
 					provider: fontProviders.fontsource(),
 					styles: ["normal", "italic"],
-					display: "optional",
+					// swap 而非 optional：optional 只给 ~100ms 阻塞窗口，CDN 冷缓存下
+					// 字体迟到后整页不再换字体，需要手动刷新才能看到自定义字体
+					display: "swap",
 				},
 				{
 					name: "ZenMaruGothic-Medium",
@@ -80,7 +82,9 @@ export default defineConfig({
 					// font prevents the following CJK font from ever being considered.
 					fallbacks: [],
 					optimizedFallbacks: false,
-					display: "optional",
+					// swap 而非 optional：optional 在 CDN 冷缓存下会让页面一直停留在
+					// 默认字体（需刷新才恢复），swap 允许字体加载完成后自动替换
+					display: "swap",
 				},
 				{
 					name: "Loli",
@@ -99,7 +103,7 @@ export default defineConfig({
 					// CJK font stack.
 					fallbacks: [],
 					optimizedFallbacks: false,
-					display: "optional",
+					display: "swap",
 				},
 			]
 		: [],
