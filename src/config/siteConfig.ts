@@ -3,6 +3,38 @@ import type { SiteConfig } from "../types/config";
 // 定义站点语言
 const SITE_LANG = "zh_CN"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
 
+// ─── 背景横幅清单 ───────────────────────────────────────────────
+// generated-banners.json 由 scripts/sync-content.js 依据 TinaCMS 媒体库
+// （内容仓库 images/banners/）生成，已 gitignore。用 Vite 的 import.meta.glob
+// 内联读取（与 globalConfigLoader.ts 同法，避免把 node:fs 打进客户端 bundle）：
+// 文件缺失或某方向为空时退回下面的默认清单。
+const bannerModules = import.meta.glob<{
+	default?: { desktop?: string[]; mobile?: string[] };
+}>("./generated-banners.json", { eager: true });
+const generatedBanners = bannerModules["./generated-banners.json"]?.default ?? {};
+
+// 默认横幅图片（内容仓库未提供横幅时使用）
+const DEFAULT_DESKTOP_BANNERS = [
+	"/assets/desktop-banner/1.webp",
+	"/assets/desktop-banner/2.webp",
+	"/assets/desktop-banner/3.webp",
+	"/assets/desktop-banner/4.webp",
+	"/assets/desktop-banner/5.webp",
+];
+const DEFAULT_MOBILE_BANNERS = [
+	"/assets/mobile-banner/1.webp",
+	"/assets/mobile-banner/2.webp",
+	"/assets/mobile-banner/3.webp",
+	"/assets/mobile-banner/4.webp",
+];
+
+const desktopBanners = generatedBanners?.desktop?.length
+	? generatedBanners.desktop
+	: DEFAULT_DESKTOP_BANNERS;
+const mobileBanners = generatedBanners?.mobile?.length
+	? generatedBanners.mobile
+	: DEFAULT_MOBILE_BANNERS;
+
 export const siteConfig: SiteConfig = {
 	title: "QikiiL's Blog",
 	subtitle: "编程感想与日常随笔",
@@ -122,19 +154,8 @@ export const siteConfig: SiteConfig = {
 	banner: {
 		// 支持单张图片或图片数组，当数组长度 > 1 时自动启用轮播
 		src: {
-			desktop: [
-				"/assets/desktop-banner/1.webp",
-				"/assets/desktop-banner/2.webp",
-				"/assets/desktop-banner/3.webp",
-				"/assets/desktop-banner/4.webp",
-				"/assets/desktop-banner/5.webp",
-			], // 桌面横幅图片
-			mobile: [
-				"/assets/mobile-banner/1.webp",
-				"/assets/mobile-banner/2.webp",
-				"/assets/mobile-banner/3.webp",
-				"/assets/mobile-banner/4.webp",
-			], // 移动横幅图片
+			desktop: desktopBanners, // 桌面横幅图片（来自 TinaCMS 媒体库，见 generated-banners.json）
+			mobile: mobileBanners, // 移动横幅图片（来自 TinaCMS 媒体库，见 generated-banners.json）
 		}, // 使用本地横幅图片
 
 		position: "center", // 等同于 object-position，仅支持 'top', 'center', 'bottom'。默认为 'center'
