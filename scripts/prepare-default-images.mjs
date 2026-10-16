@@ -5,13 +5,6 @@ import sharp from "sharp";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const publicAssets = resolve(projectRoot, "public", "assets");
-const mirroredAssets = resolve(
-	projectRoot,
-	"src",
-	"assets",
-	"public",
-	"assets",
-);
 const musicCoverOutput = resolve(
 	projectRoot,
 	"src",
@@ -20,16 +13,7 @@ const musicCoverOutput = resolve(
 	"cover",
 );
 
-for (const directory of ["desktop-banner", "mobile-banner"]) {
-	const targetDirectory = resolve(mirroredAssets, directory);
-	await mkdir(targetDirectory, { recursive: true });
-	for (let index = 1; index <= 4; index += 1) {
-		await cp(
-			resolve(publicAssets, directory, `${index}.webp`),
-			resolve(targetDirectory, `${index}.webp`),
-		);
-	}
-}
+// Banners are handled by scripts/sync-banners.js (TinaCMS-managed).
 
 await mkdir(musicCoverOutput, { recursive: true });
 for (const name of ["cl", "dazbee", "hitori", "xryx"]) {
@@ -47,4 +31,4 @@ for (const name of ["cl", "dazbee", "hitori", "xryx"]) {
 	}
 }
 
-console.log("Prepared mirrored banners and player-sized music covers.");
+console.log("Prepared player-sized music covers.");
