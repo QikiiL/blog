@@ -54,3 +54,10 @@ jobs:
           branch: pages # 部署到pages分支
           folder: dist # Astro默认构建输出目录
           clean: true # 清理目标分支中的旧文件
+
+      # 部署完成后预热 jsdmirror 缓存：冷缓存会透传 jsDelivr 的 503 No healthy backend，
+      # 且 pages 分支缓存只有 12 小时，因此每次部署后都需要重新回源一遍。
+      # 预热失败不影响部署结果（脚本本身始终 exit 0，这里再加一层保险）。
+      - name: Prewarm CDN cache
+        continue-on-error: true
+        run: node scripts/prewarm-cdn.mjs

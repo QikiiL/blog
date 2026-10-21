@@ -100,6 +100,9 @@ const favicons: Favicon[] =
 <!-- 预连接 Iconify API 以减少图标加载延迟 -->
 <link rel="preconnect" href="https://api.iconify.design" crossorigin />
 
+<!-- 图片 CDN 兜底：jsdmirror 冷缓存 503 时回退到站点源重试一次（见 public/scripts/cdn-fallback.js） -->
+<script is:inline defer src="/scripts/cdn-fallback.js"></script>
+
 <!-- Set the theme before the page is rendered to avoid a flash -->
 <script
 	is:inline
