@@ -1,6 +1,10 @@
 # build output
 dist/
 
+# generated font slices (scripts/prepare-font-slices.mjs, runs in predev/prebuild)
+/public/fonts/slices/
+/src/styles/fonts.generated.css
+
 # generated types
 .astro/
 demo

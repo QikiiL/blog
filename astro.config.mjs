@@ -64,47 +64,12 @@ export default defineConfig({
 					// 字体迟到后整页不再换字体，需要手动刷新才能看到自定义字体
 					display: "swap",
 				},
-				{
-					name: "ZenMaruGothic-Medium",
-					cssVariable: "--font-body",
-					provider: fontProviders.local(),
-					options: {
-						variants: [
-							{
-								src: ["./src/assets/fonts/ZenMaruGothic-Medium.woff2"],
-								weight: "500",
-								style: "normal",
-							},
-						],
-					},
-					// These variables are composed into --font-sans below. Keep their
-					// fallback lists empty; otherwise a system fallback after this Latin
-					// font prevents the following CJK font from ever being considered.
-					fallbacks: [],
-					optimizedFallbacks: false,
-					// swap 而非 optional：optional 在 CDN 冷缓存下会让页面一直停留在
-					// 默认字体（需刷新才恢复），swap 允许字体加载完成后自动替换
-					display: "swap",
-				},
-				{
-					name: "Loli",
-					cssVariable: "--font-cjk",
-					provider: fontProviders.local(),
-					options: {
-						variants: [
-							{
-								src: ["./src/assets/fonts/loli.woff2"],
-								weight: "400",
-								style: "normal",
-							},
-						],
-					},
-					// The final system fallback belongs to --font-sans, not this partial
-					// CJK font stack.
-					fallbacks: [],
-					optimizedFallbacks: false,
-					display: "swap",
-				},
+				// ZenMaruGothic-Medium (--font-body) and Loli (--font-cjk) are NOT
+				// registered here: loading them through the Fonts API means shipping
+				// one 4.86MB + one 1.58MB file. They are split into unicode-range
+				// slices by `scripts/prepare-font-slices.mjs` instead, which emits
+				// `src/styles/fonts.generated.css` (the @font-face rules plus the
+				// --font-body/--font-cjk variables) and the per-page preloads.
 			]
 		: [],
 

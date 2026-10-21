@@ -14,6 +14,8 @@ const BANNER_HEIGHT_EXTEND = 30;
 const BANNER_HEIGHT_HOME = BANNER_HEIGHT + BANNER_HEIGHT_EXTEND;
 
 import { PAGE_WIDTH } from "../constants/constants";
+// 自定义字体的 @font-face（unicode-range 分片）与 --font-body/--font-cjk 变量
+import "../styles/fonts.generated.css";
 import "../styles/variables.styl";
 import "../styles/main.css";
 import "../styles/banner.css";
@@ -141,7 +143,8 @@ const bannerOffsetByPosition = {
 const bannerOffset =
 	bannerOffsetByPosition[siteConfig.banner.position || "center"];
 
-// CSS 变量由 Astro Font API 自动注入，body 字体通过 --font-sans 组合 --font-body 与 --font-cjk 应用
+// --font-body / --font-cjk 由 src/styles/fonts.generated.css 提供（构建期由
+// scripts/prepare-font-slices.mjs 生成），body 字体通过 --font-sans 组合两者应用
 ---
 
 <!doctype html>
@@ -162,8 +165,6 @@ const bannerOffset =
 			@layer properties, theme, base, components, utilities;
 		</style>
 
-		{customFontsEnabled && <Font cssVariable="--font-body" preload />}
-		{customFontsEnabled && <Font cssVariable="--font-cjk" preload />}
 		{customFontsEnabled && <Font cssVariable="--font-jetbrains-mono" preload />}
 
 		<script is:inline>

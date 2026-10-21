@@ -1,5 +1,11 @@
 allowBuilds:
+  # cn-font-split 的 postinstall 会下载「最新版」wasm core；版本不固定会让切片
+  # 结果随上游漂移，因此这里禁用，改由 scripts/prepare-font-slices.mjs 按固定
+  # 版本（7.6.8）安装 core。
+  cn-font-split: false
   esbuild: true
+  koffi: false
+  protobufjs: false
   sharp: true
   ttf2woff2: true
 minimumReleaseAgeExclude:
